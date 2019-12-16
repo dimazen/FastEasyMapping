@@ -22,3 +22,4 @@ FOUNDATION_EXPORT const unsigned char FastEasyMappingVersionString[];
 #import <FastEasyMapping/FEMTypes.h>
 #import <FastEasyMapping/FEMTypeIntrospection.h>
 #import <FastEasyMapping/FEMRepresentationUtility.h>
+#import <FastEasyMapping/FEMDeserializationInfo.h>

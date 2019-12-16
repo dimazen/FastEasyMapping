@@ -4,7 +4,7 @@
 
 #import "FEMRelationshipAssignmentContext.h"
 
-@class FEMMapping;
+@class FEMDeserializationInfo, FEMMapping;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -23,9 +23,9 @@ NS_ASSUME_NONNULL_BEGIN
  @discussion Invoked by FEMDeserializer at the very beginning of deserialization.
  Custom implementation may want to begin write transaction or similar. Default implementation does nothing.
 
- @param presentedPrimaryKeys when `+[YourObjectStoreSubclass requiresPrefetch]` returns `YES` then `presentedPrimaryKeys contains a non-nil Dictionary with `-[FEMMapping uniqueIdentifier]` to Set of primary keys pairs. In case +requiresPrefetch returns NO - nil value passed.
+ @param info when `+[YourObjectStoreSubclass requiresPrefetch]` returns `YES` then `presentedPrimaryKeys contains a non-nil Dictionary with `-[FEMMapping uniqueIdentifier]` to Set of primary keys pairs. In case +requiresPrefetch returns NO - nil value passed.
  */
-- (void)beginTransaction:(nullable NSDictionary<NSNumber *, NSSet<id> *> *)presentedPrimaryKeys representation:(nonnull NSArray *)representation;
+- (void)beginTransaction:(FEMDeserializationInfo *)info;
 
 /**
  @discussion Invoked by FEMDeserializer after all data has been deserialized.
@@ -104,7 +104,7 @@ NS_ASSUME_NONNULL_BEGIN
  
  @return Registered Object or nil.
  */
-- (nullable id)objectForPrimaryKey:(id)primaryKey mapping:(FEMMapping *)mapping;
+- (nullable id)objectForPrimaryKey:(id)primaryKey mapping:(FEMMapping *)mapping representation:(id)representation;
 
 @end
 

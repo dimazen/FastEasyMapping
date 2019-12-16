@@ -5,7 +5,7 @@
 
 @implementation FEMObjectStore
 
-- (void)beginTransaction:(nullable NSDictionary<NSNumber *, NSSet<id> *> *)presentedPrimaryKeys representation:(nonnull NSArray *)representation {
+- (void)beginTransaction:(FEMDeserializationInfo *)info {
     // no-op
 }
 
@@ -35,7 +35,7 @@
     return @{};
 }
 
-- (id)objectForPrimaryKey:(id)primaryKey mapping:(FEMMapping *)mapping {
+- (nullable id)objectForPrimaryKey:(id)primaryKey mapping:(FEMMapping *)mapping representation:(id)representation {
     return nil;
 }
 

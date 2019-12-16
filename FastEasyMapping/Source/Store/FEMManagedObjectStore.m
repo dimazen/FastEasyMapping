@@ -7,6 +7,7 @@
 #import "FEMMapping.h"
 #import "FEMObjectCache.h"
 #import "FEMRepresentationUtility.h"
+#import "FEMDeserializationInfo.h"
 
 __attribute__((always_inline)) void validateMapping(FEMMapping *mapping) {
     NSCAssert(mapping.entityName != nil, @"Entity name can't be nil. Please, use -[FEMMapping initWithEntityName:]");
@@ -30,8 +31,8 @@ __attribute__((always_inline)) void validateMapping(FEMMapping *mapping) {
 
 #pragma mark - Transaction
 
-- (void)beginTransaction:(nullable NSDictionary<NSNumber *, NSSet<id> *> *)presentedPrimaryKeys representation:(nonnull NSArray *)representation {
-    _cache = [[FEMObjectCache alloc] initWithContext:self.context presentedPrimaryKeys:presentedPrimaryKeys];
+- (void)beginTransaction:(FEMDeserializationInfo *)info {
+    _cache = [[FEMObjectCache alloc] initWithContext:self.context presentedPrimaryKeys:info.presentedPrimaryKeys];
 }
 
 - (NSError *)commitTransaction {
@@ -56,7 +57,7 @@ __attribute__((always_inline)) void validateMapping(FEMMapping *mapping) {
     return [NSEntityDescription insertNewObjectForEntityForName:entityName inManagedObjectContext:self.context];
 }
 
-- (id)objectForPrimaryKey:(id)primaryKey mapping:(FEMMapping *)mapping {
+- (nullable id)objectForPrimaryKey:(id)primaryKey mapping:(FEMMapping *)mapping representation:(id)representation {
     validateMapping(mapping);
     return [_cache objectForKey:primaryKey mapping:mapping];
 }

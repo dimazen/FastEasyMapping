@@ -10,6 +10,7 @@
 #import "FEMRelationshipAssignmentContext+Internal.h"
 #import "FEMRepresentationUtility.h"
 #import "FEMManagedObjectStore.h"
+#import "FEMDeserializationInfo.h"
 
 @implementation FEMDeserializer {
     struct {
@@ -118,7 +119,7 @@
     if (primaryKeyAttribute) {
         primaryKey = FEMRepresentationValueForAttribute(representation, primaryKeyAttribute);
         if (primaryKey != nil && primaryKey != [NSNull null]) {
-            object = [self.store objectForPrimaryKey:primaryKey mapping:mapping];
+            object = [self.store objectForPrimaryKey:primaryKey mapping:mapping representation:representation];
         }
     }
 
@@ -177,7 +178,10 @@
         presentedPrimaryKeys = FEMRepresentationCollectPresentedPrimaryKeys(representation, mapping);
     }
 
-    [self.store beginTransaction:presentedPrimaryKeys representation:representation];
+    FEMDeserializationInfo *info = [[FEMDeserializationInfo alloc] initWithMapping:mapping
+                                                              presentedPrimaryKeys:presentedPrimaryKeys
+                                                                    representation:representation];
+    [self.store beginTransaction:info];
 }
 
 - (void)commitTransaction {
