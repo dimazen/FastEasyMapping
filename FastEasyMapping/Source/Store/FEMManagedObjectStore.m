@@ -30,7 +30,7 @@ __attribute__((always_inline)) void validateMapping(FEMMapping *mapping) {
 
 #pragma mark - Transaction
 
-- (void)beginTransaction:(nullable NSDictionary<NSNumber *, NSSet<id> *> *)presentedPrimaryKeys {
+- (void)beginTransaction:(nullable NSDictionary<NSNumber *, NSSet<id> *> *)presentedPrimaryKeys representation:(nonnull NSArray *)representation {
     _cache = [[FEMObjectCache alloc] initWithContext:self.context presentedPrimaryKeys:presentedPrimaryKeys];
 }
 
@@ -61,7 +61,7 @@ __attribute__((always_inline)) void validateMapping(FEMMapping *mapping) {
     return [_cache objectForKey:primaryKey mapping:mapping];
 }
 
-- (void)addObject:(id)object forPrimaryKey:(nullable id)primaryKey mapping:(FEMMapping *)mapping {
+- (void)addObject:(id)object forPrimaryKey:(nullable id)primaryKey mapping:(FEMMapping *)mapping representation:(id)representation {
     validateMapping(mapping);
 
     if (primaryKey != nil && [object isInserted]) {

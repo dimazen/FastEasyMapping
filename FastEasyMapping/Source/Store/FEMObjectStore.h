@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  @param presentedPrimaryKeys when `+[YourObjectStoreSubclass requiresPrefetch]` returns `YES` then `presentedPrimaryKeys contains a non-nil Dictionary with `-[FEMMapping uniqueIdentifier]` to Set of primary keys pairs. In case +requiresPrefetch returns NO - nil value passed.
  */
-- (void)beginTransaction:(nullable NSDictionary<NSNumber *, NSSet<id> *> *)presentedPrimaryKeys;
+- (void)beginTransaction:(nullable NSDictionary<NSNumber *, NSSet<id> *> *)presentedPrimaryKeys representation:(nonnull NSArray *)representation;
 
 /**
  @discussion Invoked by FEMDeserializer after all data has been deserialized.
@@ -80,7 +80,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param primaryKey PrimaryKey value if presented in JSON and setup via FEMMapping.primaryKey or nil.
  @param mapping Mapping that is describing the `object`. You may want to ask for the `mapping.primaryKey` in order to get primary key value from `object`.
  */
-- (void)addObject:(id)object forPrimaryKey:(nullable id)primaryKey mapping:(FEMMapping *)mapping;
+- (void)addObject:(id)object forPrimaryKey:(nullable id)primaryKey mapping:(FEMMapping *)mapping representation:(id)representation;
 
 /**
  @brief Dictionary of registered objects for the given `mapping`.

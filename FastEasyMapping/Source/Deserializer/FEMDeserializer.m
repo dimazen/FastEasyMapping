@@ -139,7 +139,7 @@
     [self applyAttributesToObject:object representation:representation mapping:mapping allocated:allocated];
 
     if (allocated) {
-        [self.store addObject:object forPrimaryKey:primaryKey mapping:mapping];
+        [self.store addObject:object forPrimaryKey:primaryKey mapping:mapping representation:representation];
     }
 
     [self applyRelationshipsToObject:object representation:representation mapping:mapping];
@@ -177,7 +177,7 @@
         presentedPrimaryKeys = FEMRepresentationCollectPresentedPrimaryKeys(representation, mapping);
     }
 
-    [self.store beginTransaction:presentedPrimaryKeys];
+    [self.store beginTransaction:presentedPrimaryKeys representation:representation];
 }
 
 - (void)commitTransaction {
